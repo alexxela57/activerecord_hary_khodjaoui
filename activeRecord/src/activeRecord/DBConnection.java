@@ -22,7 +22,9 @@ public class DBConnection {
         return connection;
     }
 
-    public void setNomDB(String nomDB){
-        this.url = nomDB;
+    public void setNomDB(String nomDB) throws SQLException {
+        url = nomDB;
+
+        connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/"+url,"root", "0777973314_Ale");
     }
 }
