@@ -4,7 +4,7 @@ out/
 !**/src/test/**/out/
 .idea
 activerecord_hary_khodjaoui.iml
-activeRecord/src/activeRecord/DBConnection.java
+#activeRecord/src/activeRecord/DBConnection.java
 activeRecord/out
 activeRecord/.idea
 

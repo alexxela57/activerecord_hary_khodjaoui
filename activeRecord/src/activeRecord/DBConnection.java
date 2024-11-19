@@ -8,12 +8,10 @@ public class DBConnection {
 
     private static Connection connection;
 
-    private String username;
-    private String password;
-    private String url;
+    private static String url;
 
     private DBConnection() throws SQLException {
-        connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/testpersonne","root", "");
+        connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/testpersonne","root", "0777973314_Ale");
 
     }
 
@@ -22,5 +20,9 @@ public class DBConnection {
             new DBConnection();
         }
         return connection;
+    }
+
+    public void setNomDB(String nomDB){
+        this.url = nomDB;
     }
 }
