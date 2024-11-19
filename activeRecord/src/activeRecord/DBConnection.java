@@ -8,11 +8,16 @@ public class DBConnection {
 
     private static Connection connection;
 
+    private String username;
+    private String password;
+    private String url;
+
     private DBConnection() throws SQLException {
-        connection = DriverManager.getConnection("jdbc:mysql://db4free.net/testpersonne","scruzlara", "root2014");
+        connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/testpersonne","root", "");
+
     }
 
-    public Connection getConnection() throws SQLException {
+    public static Connection getConnection() throws SQLException {
         if (connection==null) {
             new DBConnection();
         }
