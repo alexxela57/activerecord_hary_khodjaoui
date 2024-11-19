@@ -4,6 +4,7 @@ out/
 !**/src/test/**/out/
 .idea
 activerecord_hary_khodjaoui.iml
+src/activeRecord.DBConnection
 
 ### Eclipse ###
 .apt_generated
