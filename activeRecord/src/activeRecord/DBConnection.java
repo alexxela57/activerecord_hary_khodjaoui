@@ -23,7 +23,10 @@ public class DBConnection {
     }
 
     public void setNomDB(String nomDB) throws SQLException {
-        url = nomDB;
+        if (nomDB!=null && nomDB!=url){
+            url=nomDB;
+            connection = null;
+        }
 
         connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/"+url,"root", "0777973314_Ale");
     }
