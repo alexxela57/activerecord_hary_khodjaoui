@@ -32,4 +32,24 @@ public class TestPersonne {
     }
 
 
+    @Test
+    public void testFindByName() throws SQLException {
+        ArrayList<Personne> listPBase = Personne.findByName("Spielberg");
+        ArrayList<Personne> listTest = new ArrayList<Personne>();
+        listTest.add(p1);
+
+        //comparer la taille des listes
+        assertEquals("Les listes doivent être de la même taille",listTest.size(), listTest.size());
+
+        for (int i=0; i<listTest.size(); i++){
+            Personne pres = listTest.get(i);
+            Personne pp = listPBase.get(i);
+
+
+            assertEquals("les personnes devraient être les memes",true, pres.equals(pp));
+        }
+
+    }
+
+
 }
