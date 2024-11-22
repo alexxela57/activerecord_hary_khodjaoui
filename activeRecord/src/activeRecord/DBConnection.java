@@ -22,7 +22,7 @@ public class DBConnection {
         return connection;
     }
 
-    public void setNomDB(String nomDB) throws SQLException {
+    public static void setNomDB(String nomDB) throws SQLException {
         if (nomDB!=null && nomDB!=url){
             url=nomDB;
             connection = null;
