@@ -11,11 +11,11 @@ public class DBConnection {
     private static String url;
 
     private DBConnection() throws SQLException {
-        connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/testpersonne","root", "0777973314_Ale");
+        connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/testpersonne","root", "");
 
     }
 
-    public static Connection getConnection() throws SQLException {
+    public static synchronized Connection getConnection() throws SQLException {
         if (connection==null) {
             new DBConnection();
         }
