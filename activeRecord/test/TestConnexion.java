@@ -17,24 +17,34 @@ public class TestConnexion {
 
     }
 
+    /**
+     * ATTENTION
+     * POUR FONCTIONNER, IL FAUT QUE LA BASE DE DONNEE
+     * XXX
+     * SOIT CREEE
+     * @throws SQLException
+     */
+    @Test
     public void testConnexion_setnom_change() throws SQLException {
         Connection c1 = DBConnection.getConnection();
-        DBConnection.setNomDB("jdbc:mysql://127.0.0.1:3306/XXXX");
+        DBConnection.setNomDB("XXX");
         Connection c2 = DBConnection.getConnection();
         assertNotEquals("devraient etre differentes",c1,c2);
     }
 
+    @Test
     public void testConnexion_setnom_meme() throws SQLException {
         Connection c1 = DBConnection.getConnection();
-        DBConnection.setNomDB("jdbc:mysql://127.0.0.1:3306/testpersonne");
+        DBConnection.setNomDB("testpersonne");
         Connection c2 = DBConnection.getConnection();
         assertEquals("devraient etre la meme",c1,c2);
     }
 
+    @Test
     public void testConnexion_setnom_null() throws SQLException {
         Connection c1 = DBConnection.getConnection();
         DBConnection.setNomDB(null);
         Connection c2 = DBConnection.getConnection();
-        assertNotEquals("devraient etre la meme",c1,c2);
+        assertEquals("devraient etre la meme",c1,c2);
     }
 }

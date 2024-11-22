@@ -7,12 +7,12 @@ import java.sql.SQLException;
 public class DBConnection {
 
     private static Connection connection;
-
-    private static String url;
+    private static String dbName = "testpersonne";
+    private final static String portNumber = "3306";
+    private final static String serverName = "127.0.0.1";
 
     private DBConnection() throws SQLException {
-        connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/testpersonne","root", "");
-
+        connection = DriverManager.getConnection("jdbc:mysql://"+serverName+":"+portNumber+"/"+dbName,"root", "");
     }
 
     public static synchronized Connection getConnection() throws SQLException {
@@ -22,12 +22,10 @@ public class DBConnection {
         return connection;
     }
 
-    public static void setNomDB(String nomDB) throws SQLException {
-        if (nomDB!=null && nomDB!=url){
-            url=nomDB;
+    public static void setNomDB(String nom) throws SQLException {
+        if (nom!=null && nom!=dbName){
+            dbName=nom;
             connection = null;
         }
-
-        connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/"+url,"root", "0777973314_Ale");
     }
 }
