@@ -19,8 +19,11 @@ public class Personne {
         prenom=p;
     }
 
-
-
+    public Personne (String n, String p, int id){
+        this.id=id;
+        nom=n;
+        prenom=p;
+    }
 
     public static ArrayList<Personne> findAll() throws SQLException {
         Connection connect = DBConnection.getConnection();
@@ -57,6 +60,7 @@ public class Personne {
             String nom = rs.getString("NOM");
             String prenom = rs.getString("PRENOM");
             personne = new Personne(nom, prenom);
+            personne.id = id;
         }
         return personne;
     }
@@ -81,7 +85,16 @@ public class Personne {
         return personnes;
     }
 
+    @Override
+    public String toString() {
+        return "Personne{" +
+                "id=" + id +
+                ", nom='" + nom + '\'' +
+                ", prenom='" + prenom + '\'' +
+                '}';
+    }
 
-
-
+    public boolean equals(Personne p) {
+        return this.nom.equals(p.nom) && this.prenom.equals(p.prenom) && this.id == p.id;
+    }
 }
