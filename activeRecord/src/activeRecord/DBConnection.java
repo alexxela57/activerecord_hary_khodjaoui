@@ -23,7 +23,7 @@ public class DBConnection {
     }
 
     public static void setNomDB(String nom) throws SQLException {
-        if (nom!=null && nom.equals(dbName)){
+        if (nom!=null && !nom.equals(dbName)){
             dbName=nom;
             connection = null;
         }
