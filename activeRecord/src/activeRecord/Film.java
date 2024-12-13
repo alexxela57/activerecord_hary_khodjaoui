@@ -149,7 +149,7 @@ public class Film {
                 }
             }
         } else {
-                String SQLPrep = "UPDATE film SET titre = ?, id_real = ? WHERE f.id = ?";
+                String SQLPrep = "UPDATE film SET titre = ?, id_rea = ? WHERE film.id = ?";
             try (PreparedStatement prep = connect.prepareStatement(SQLPrep)) {
                 prep.setString(1, this.titre);
                 prep.setInt(2, this.id_real);
