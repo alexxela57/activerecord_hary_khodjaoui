@@ -104,16 +104,18 @@ public class Personne {
         try (PreparedStatement prep = connection.prepareStatement(SQLPrep)) {
             prep.executeUpdate();
         }
-        SQLPrep= """
-            INSERT INTO `Personne` (`id`, `nom`, `prenom`) VALUES
-            (1, 'Spielberg', 'Steven'),
-            (2, 'Scott', 'Ridley'),
-            (3, 'Kubrick', 'Stanley'),
-            (4, 'Fincher', 'David');
-            """;
+
+        SQLPrep = """
+            CREATE TABLE IF NOT EXISTS film (
+                id INT(11) NOT NULL AUTO_INCREMENT,
+                titre VARCHAR(40) NOT NULL,
+                id_rea int(11) default NULL,
+                PRIMARY KEY (id)
+            ) ENGINE=InnoDB DEFAULT CHARSET=latin1;""";
         try (PreparedStatement prep = connection.prepareStatement(SQLPrep)) {
             prep.executeUpdate();
         }
+
     }
 
     public static void deleteTable() throws SQLException {
@@ -133,16 +135,21 @@ public class Personne {
     public void delete() throws SQLException {
         Connection connect = DBConnection.getConnection();
 
-        String SQLPrep = "DELETE FROM film WHERE id_rea=?";
-        PreparedStatement prep = connect.prepareStatement(SQLPrep);
-        prep.setInt(1, this.id);
-        prep.executeUpdate();
+        String SQLPrep = "DELETE FROM film WHERE id_rea = ?";
+        try (PreparedStatement prep = connect.prepareStatement(SQLPrep)) {
+            prep.setInt(1, this.id);
+            prep.executeUpdate();
+        }
 
-        SQLPrep = "DELETE FROM personne WHERE id=?";
-        prep = connect.prepareStatement(SQLPrep);
-        prep.setInt(1, this.id);
-        prep.executeUpdate();
+        SQLPrep = "DELETE FROM personne WHERE id = ?";
+        try (PreparedStatement prep = connect.prepareStatement(SQLPrep)) {
+            prep.setInt(1, this.id);
+            prep.executeUpdate();
+        }
+
+        this.id = -1;
     }
+
 
     public void save() throws SQLException {
         Connection connect = DBConnection.getConnection();
