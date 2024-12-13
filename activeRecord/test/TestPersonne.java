@@ -1,6 +1,8 @@
 import activeRecord.DBConnection;
 import activeRecord.Personne;
 import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -15,6 +17,16 @@ public class TestPersonne {
     Personne p2 = new Personne("Scott","Ridley",2);
     Personne p3 = new Personne("Kubrick","Stanley",3);
     Personne p4 = new Personne("Fincher","David",4);
+
+    @BeforeEach
+    void ajouter() throws SQLException {
+        Personne.createTable();
+    }
+
+    @AfterEach
+    void supprimer() throws SQLException {
+        Personne.deleteTable();
+    }
 
     @Test
     public void testFindAll() throws SQLException {
@@ -50,6 +62,4 @@ public class TestPersonne {
         }
 
     }
-
-
 }
