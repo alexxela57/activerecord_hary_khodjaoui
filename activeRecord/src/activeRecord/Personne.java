@@ -86,6 +86,7 @@ public class Personne {
             int id = rs.getInt("ID");
             String prenom = rs.getString("PRENOM");
             Personne personne = new Personne( nom, prenom);
+            personne.id=id;
             personnes.add(personne);
         }
         return personnes;
@@ -141,6 +142,33 @@ public class Personne {
         prep = connect.prepareStatement(SQLPrep);
         prep.setInt(1, this.id);
         prep.executeUpdate();
+    }
+
+    public void save() throws SQLException {
+        Connection connect = DBConnection.getConnection();
+
+        if (this.id == -1) {
+            String SQLPrep = "INSERT INTO personne (nom, prenom) VALUES (?, ?)";
+            try (PreparedStatement prep = connect.prepareStatement(SQLPrep, PreparedStatement.RETURN_GENERATED_KEYS)) {
+                prep.setString(1, this.nom);
+                prep.setString(2, this.prenom);
+                prep.executeUpdate();
+
+                try (ResultSet rs = prep.getGeneratedKeys()) {
+                    if (rs.next()) {
+                        this.id = rs.getInt(1);
+                    }
+                }
+            }
+        } else {
+            String SQLPrep = "UPDATE personne SET nom = ?, prenom = ? WHERE id = ?";
+            try (PreparedStatement prep = connect.prepareStatement(SQLPrep)) {
+                prep.setString(1, this.nom);
+                prep.setString(2, this.prenom);
+                prep.setInt(3, this.id);
+                prep.executeUpdate();
+            }
+        }
     }
 
 
