@@ -1,15 +1,13 @@
 import activeRecord.DBConnection;
 import activeRecord.Personne;
-import org.junit.Test;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestPersonne {
 
@@ -31,16 +29,16 @@ public class TestPersonne {
     @Test
     public void testFindAll() throws SQLException {
         ArrayList<Personne> list = Personne.findAll();
-        assertEquals("devraient etre la meme personne",true,list.get(0).equals(p1));
-        assertEquals("devraient etre la meme personne",true,list.get(1).equals(p2));
-        assertEquals("devraient etre la meme personne",true,list.get(2).equals(p3));
-        assertEquals("devraient etre la meme personne",true,list.get(3).equals(p4));
+        assertEquals(true,list.get(0).equals(p1),"devraient etre la meme personne");
+        assertEquals(true,list.get(1).equals(p2),"devraient etre la meme personne");
+        assertEquals(true,list.get(2).equals(p3),"devraient etre la meme personne");
+        assertEquals(true,list.get(3).equals(p4),"devraient etre la meme personne");
     }
 
     @Test
     public void testFindById() throws SQLException {
         Personne p = Personne.findById(1);
-        assertEquals("devraient etre la meme personne",true,p.equals(p1));
+        assertEquals(true,p.equals(p1),"devraient etre la meme personne");
     }
 
 
@@ -51,14 +49,14 @@ public class TestPersonne {
         listTest.add(p1);
 
         //comparer la taille des listes
-        assertEquals("Les listes doivent être de la même taille",listTest.size(), listTest.size());
+        assertEquals(listTest.size(), listTest.size(),"Les listes doivent être de la même taille");
 
         for (int i=0; i<listTest.size(); i++){
             Personne pres = listTest.get(i);
             Personne pp = listPBase.get(i);
 
 
-            assertEquals("les personnes devraient être les memes.",true, pres.equals(pp));
+            assertEquals(true, pres.equals(pp),"les personnes devraient être les memes.");
         }
 
     }

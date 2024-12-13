@@ -1,19 +1,23 @@
 import activeRecord.DBConnection;
-import org.junit.Test;
+import activeRecord.Personne;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 public class TestConnexion {
     @Test
     public void testConnexion_meme() throws SQLException {
         Connection c1 = DBConnection.getConnection();
         Connection c2 = DBConnection.getConnection();
-        assertEquals("Devraient etre la meme",c1,c2);
-        assertEquals("devrait etre une connection",c1.getClass(),c2.getClass());
+        assertEquals(c1,c2,"Devraient etre la meme");
+        assertEquals(c1.getClass(),c2.getClass(),"devrait etre une connection");
 
     }
 
@@ -29,7 +33,7 @@ public class TestConnexion {
         Connection c1 = DBConnection.getConnection();
         DBConnection.setNomDB("XXX");
         Connection c2 = DBConnection.getConnection();
-        assertNotEquals("devraient etre differentes",c1,c2);
+        assertNotEquals(c1,c2,"devraient etre differentes");
     }
 
     @Test
@@ -37,7 +41,7 @@ public class TestConnexion {
         Connection c1 = DBConnection.getConnection();
         DBConnection.setNomDB("testpersonne");
         Connection c2 = DBConnection.getConnection();
-        assertEquals("devraient etre la meme",c1,c2);
+        assertEquals(c1,c2,"devraient etre la meme");
     }
 
     @Test
@@ -45,6 +49,6 @@ public class TestConnexion {
         Connection c1 = DBConnection.getConnection();
         DBConnection.setNomDB(null);
         Connection c2 = DBConnection.getConnection();
-        assertEquals("devraient etre la meme",c1,c2);
+        assertEquals(c1,c2,"devraient etre la meme");
     }
 }
