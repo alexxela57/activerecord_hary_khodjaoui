@@ -143,6 +143,8 @@ public class Personne {
         prep.executeUpdate();
     }
 
+
+
     @Override
     public String toString() {
         return "Personne{" +
@@ -154,5 +156,29 @@ public class Personne {
 
     public boolean equals(Personne p) {
         return this.nom.equals(p.nom) && this.prenom.equals(p.prenom) && this.id == p.id;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public String getPrenom() {
+        return prenom;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public void setPrenom(String prenom) {
+        this.prenom = prenom;
     }
 }
