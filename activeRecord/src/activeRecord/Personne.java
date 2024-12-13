@@ -110,12 +110,7 @@ public class Personne {
     public static void deleteTable() throws SQLException {
         Connection connect = DBConnection.getConnection();
 
-        String SQLPrep = "DROP TABLE IF EXISTS film";
-        try (PreparedStatement prep = connect.prepareStatement(SQLPrep)) {
-            prep.executeUpdate();
-        }
-
-        SQLPrep = "DROP TABLE IF EXISTS personne";
+        String SQLPrep = "DROP TABLE IF EXISTS personne";
         try (PreparedStatement prep = connect.prepareStatement(SQLPrep)) {
             prep.executeUpdate();
         }
