@@ -229,11 +229,14 @@ public class TestFilm {
         assertEquals(f1.getTitre(), films.get(1).getTitre());
         assertEquals(f1.getId_real(), films.get(1).getId_real());
         assertEquals(f1.getId(), films.get(1).getId());
+    }
 
+    public void testFindByRealisateurInexistant() throws SQLException{
+        Film f0 = Film.findById(1);
+        Film f1 = Film.findById(3);
+        Personne p = new Personne("Zemeckis", "Robert");
 
-
-        assertEquals(f1.getTitre(), films.get(1).getTitre());
-
-
+        ArrayList<Film> films = Film.findByRealisateur(p);
+        assertTrue(films.isEmpty());
     }
 }
