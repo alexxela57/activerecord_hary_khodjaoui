@@ -124,13 +124,7 @@ public class Personne {
     public void delete() throws SQLException {
         Connection connect = DBConnection.getConnection();
 
-        String SQLPrep = "DELETE FROM film WHERE id_rea = ?";
-        try (PreparedStatement prep = connect.prepareStatement(SQLPrep)) {
-            prep.setInt(1, this.id);
-            prep.executeUpdate();
-        }
-
-        SQLPrep = "DELETE FROM personne WHERE id = ?";
+        String SQLPrep = "DELETE FROM personne WHERE id = ?";
         try (PreparedStatement prep = connect.prepareStatement(SQLPrep)) {
             prep.setInt(1, this.id);
             prep.executeUpdate();

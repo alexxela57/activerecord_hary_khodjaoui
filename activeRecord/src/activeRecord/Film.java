@@ -47,8 +47,8 @@ public class Film {
         Connection connect = DBConnection.getConnection();
         Film film = null;
 
-        String SQLPrep = "SELECT * FROM Film f inner join Personne p on f.id_rea = p.id;" +
-                " WHERE ID = ?";
+        String SQLPrep = "SELECT * FROM Film f inner join Personne p on f.id_rea = p.id" +
+                " WHERE f.ID = ?;";
         PreparedStatement prep = connect.prepareStatement(SQLPrep);
         prep.setInt(1, id);
         ResultSet rs = prep.executeQuery();
@@ -61,8 +61,8 @@ public class Film {
         return film;
     }
 
-    public Personne getRealisateur(int id_real) throws SQLException {
-        return Personne.findById(id_real);
+    public Personne getRealisateur() throws SQLException {
+        return Personne.findById(this.id_real);
     }
 
     public static void createTable() throws SQLException {
@@ -86,6 +86,59 @@ public class Film {
         String SQLPrep = "DROP TABLE IF EXISTS film";
         try (PreparedStatement prep = connect.prepareStatement(SQLPrep)) {
             prep.executeUpdate();
+        }
+    }
+
+    public void delete() throws SQLException {
+        Connection connect = DBConnection.getConnection();
+
+        String SQLPrep = "DELETE FROM film WHERE id_rea = ?";
+        try (PreparedStatement prep = connect.prepareStatement(SQLPrep)) {
+            prep.setInt(1, this.id);
+            prep.executeUpdate();
+        }
+
+        this.id = -1;
+    }
+
+    public void save() throws SQLException, RealisateurAbsentException {
+        Connection connect = DBConnection.getConnection();
+
+        ArrayList<Personne> personnes = Personne.findAll();
+        boolean existe = false;
+
+        // Vérification si le réalisateur existe dans la liste
+        for (Personne personne : personnes) {
+            if (personne.getId() == this.id_real) {
+                existe = true;
+                break;
+            }
+        }
+        if(!existe) {
+            throw  new RealisateurAbsentException();
+        }
+
+        if (this.id == -1) {
+            String SQLPrep = "INSERT INTO film (titre, id_rea) VALUES (?, ?)";
+            try (PreparedStatement prep = connect.prepareStatement(SQLPrep, PreparedStatement.RETURN_GENERATED_KEYS)) {
+                prep.setString(1, this.titre);
+                prep.setInt(2, this.id_real);
+                prep.executeUpdate();
+
+                try (ResultSet rs = prep.getGeneratedKeys()) {
+                    if (rs.next()) {
+                        this.id = rs.getInt(1);
+                    }
+                }
+            }
+        } else {
+                String SQLPrep = "UPDATE film SET titre = ?, id_real = ? WHERE f.id = ?";
+            try (PreparedStatement prep = connect.prepareStatement(SQLPrep)) {
+                prep.setString(1, this.titre);
+                prep.setInt(2, this.id_real);
+                prep.setInt(3, this.id);
+                prep.executeUpdate();
+            }
         }
     }
 
