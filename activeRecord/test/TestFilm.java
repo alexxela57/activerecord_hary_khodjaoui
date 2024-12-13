@@ -229,6 +229,7 @@ public class TestFilm {
         assertEquals(f1.getTitre(), films.get(1).getTitre());
         assertEquals(f1.getId_real(), films.get(1).getId_real());
         assertEquals(f1.getId(), films.get(1).getId());
+        assertEquals(2,films.size(),"ce realisateur devrait avoir fait 2 films");
     }
 
     public void testFindByRealisateurInexistant() throws SQLException{
