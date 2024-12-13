@@ -65,6 +65,23 @@ public class Film {
         return Personne.findById(this.id_real);
     }
 
+    public static ArrayList<Film> findByRealisateur(Personne p) throws SQLException {
+        ArrayList<Film> list = new ArrayList<Film>();
+        Connection connect = DBConnection.getConnection();
+        String SQLPrep = "SELECT * FROM Film f where f.id_rea = ?;";
+        PreparedStatement prep = connect.prepareStatement(SQLPrep);
+        prep.setInt(1, p.getId());
+        ResultSet rs = prep.executeQuery();
+        while (rs.next()) {
+            String titre = rs.getString("titre");
+            int id = rs.getInt("f.id");
+            int id_real = rs.getInt("id_rea");
+            Film film = new Film(titre, id, id_real);
+            list.add(film);
+        }
+        return list;
+    }
+
     public static void createTable() throws SQLException {
         Connection connection = DBConnection.getConnection();
         String SQLPrep =  """

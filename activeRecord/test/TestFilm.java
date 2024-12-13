@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class TestFilm {
 
@@ -213,5 +214,26 @@ public class TestFilm {
         assertEquals("bincher", f2.getRealisateur().getNom());
         // verifie qu'on ne duplique pas les realisateur
         assertEquals(4, f2.getRealisateur().getId());
+    }
+
+    public void testFindByRealisateurExistant() throws SQLException{
+        Film f0 = Film.findById(1);
+        Film f1 = Film.findById(3);
+        Personne p = Personne.findById(1);
+
+        ArrayList<Film> films = Film.findByRealisateur(p);
+        assertEquals(f0.getTitre(), films.get(0).getTitre());
+        assertEquals(f0.getId_real(), films.get(0).getId_real());
+        assertEquals(f0.getId(), films.get(0).getId());
+
+        assertEquals(f1.getTitre(), films.get(1).getTitre());
+        assertEquals(f1.getId_real(), films.get(1).getId_real());
+        assertEquals(f1.getId(), films.get(1).getId());
+
+
+
+        assertEquals(f1.getTitre(), films.get(1).getTitre());
+
+
     }
 }
