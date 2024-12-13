@@ -1,12 +1,15 @@
 ### IntelliJ IDEA ###
 out/
+out/*
 !**/src/main/**/out/
 !**/src/test/**/out/
 .idea
 activerecord_hary_khodjaoui.iml
 #activeRecord/src/activeRecord/DBConnection.java
-activeRecord/out
-activeRecord/.idea
+activeRecord/out/
+activeRecord/out/*
+activeRecord/.idea/
+activeRecord/.idea/*
 
 ### Eclipse ###
 .apt_generated
@@ -32,3 +35,4 @@ bin/
 
 ### Mac OS ###
 .DS_Store
+
