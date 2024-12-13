@@ -92,7 +92,7 @@ public class Film {
     public void delete() throws SQLException {
         Connection connect = DBConnection.getConnection();
 
-        String SQLPrep = "DELETE FROM film WHERE id_rea = ?";
+        String SQLPrep = "DELETE FROM film WHERE id = ?";
         try (PreparedStatement prep = connect.prepareStatement(SQLPrep)) {
             prep.setInt(1, this.id);
             prep.executeUpdate();
@@ -114,7 +114,7 @@ public class Film {
                 break;
             }
         }
-        if(!existe) {
+        if(!existe||this.id_real==-1) {
             throw  new RealisateurAbsentException();
         }
 
