@@ -94,13 +94,16 @@ public class Personne {
     public static void createTable() throws SQLException {
         Connection connection = DBConnection.getConnection();
         String SQLPrep = """
-            CREATE TABLE IF NOT EXISTS Personne (
+            CREATE TABLE IF NOT EXISTS personne (
                 id INT(11) NOT NULL AUTO_INCREMENT,
                 nom VARCHAR(40) NOT NULL,
                 prenom VARCHAR(40) NOT NULL,
                 PRIMARY KEY (id)
-            ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
+            ) ENGINE=InnoDB DEFAULT CHARSET=latin1;""";
+        try (PreparedStatement prep = connection.prepareStatement(SQLPrep)) {
+            prep.executeUpdate();
+        }
+        SQLPrep= """
             INSERT INTO `Personne` (`id`, `nom`, `prenom`) VALUES
             (1, 'Spielberg', 'Steven'),
             (2, 'Scott', 'Ridley'),
