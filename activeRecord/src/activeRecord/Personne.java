@@ -19,6 +19,12 @@ public class Personne {
         prenom=p;
     }
 
+    /**
+     * constructeur utilisé dans les tests uniquement
+     * @param n
+     * @param p
+     * @param id
+     */
     public Personne (String n, String p, int id){
         this.id=id;
         nom=n;
@@ -83,6 +89,55 @@ public class Personne {
             personnes.add(personne);
         }
         return personnes;
+    }
+
+    public static void createTable() throws SQLException {
+        Connection connection = DBConnection.getConnection();
+        String SQLPrep = """
+            CREATE TABLE IF NOT EXISTS Personne (
+                id INT(11) NOT NULL AUTO_INCREMENT,
+                nom VARCHAR(40) NOT NULL,
+                prenom VARCHAR(40) NOT NULL,
+                PRIMARY KEY (id)
+            ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+            INSERT INTO `Personne` (`id`, `nom`, `prenom`) VALUES
+            (1, 'Spielberg', 'Steven'),
+            (2, 'Scott', 'Ridley'),
+            (3, 'Kubrick', 'Stanley'),
+            (4, 'Fincher', 'David');
+            """;
+        try (PreparedStatement prep = connection.prepareStatement(SQLPrep)) {
+            prep.executeUpdate();
+        }
+    }
+
+    public static void deleteTable() throws SQLException {
+        Connection connect = DBConnection.getConnection();
+
+        String SQLPrep = "DROP TABLE IF EXISTS film";
+        try (PreparedStatement prep = connect.prepareStatement(SQLPrep)) {
+            prep.executeUpdate();
+        }
+
+        SQLPrep = "DROP TABLE IF EXISTS personne";
+        try (PreparedStatement prep = connect.prepareStatement(SQLPrep)) {
+            prep.executeUpdate();
+        }
+    }
+
+    public void delete() throws SQLException {
+        Connection connect = DBConnection.getConnection();
+
+        String SQLPrep = "DELETE FROM film WHERE id_rea=?";
+        PreparedStatement prep = connect.prepareStatement(SQLPrep);
+        prep.setInt(1, this.id);
+        prep.executeUpdate();
+
+        SQLPrep = "DELETE FROM personne WHERE id=?";
+        prep = connect.prepareStatement(SQLPrep);
+        prep.setInt(1, this.id);
+        prep.executeUpdate();
     }
 
     @Override
