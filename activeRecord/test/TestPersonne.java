@@ -149,4 +149,29 @@ public class TestPersonne {
         assertEquals( null, p2,"le supprime n'existe plus");
     }
 
+    @Test
+/**
+ * Test de mise à jour de tous les champs d'une personne
+ */
+    public void testUpdateNomEtPrenom() throws SQLException {
+        Personne p = Personne.findById(2); // Scott
+        p.setNom("Tarantino");
+        p.setPrenom("Quentin");
+        p.save();
+
+        Personne pUpdated = Personne.findById(2);
+        assertEquals("Tarantino", pUpdated.getNom(), "Le nom devrait être mis à jour.");
+        assertEquals("Quentin", pUpdated.getPrenom(), "Le prénom devrait être mis à jour.");
+    }
+
+    @Test
+/**
+ * Test de suppression d'une personne non existante
+ */
+    public void testDeletePersonneNonExistante() throws SQLException {
+        Personne p = new Personne("Inconnu", "Personne");
+        p.delete();
+
+        assertEquals(-1, p.getId(), "L'id devrait rester -1 après tentative de suppression.");
+    }
 }
