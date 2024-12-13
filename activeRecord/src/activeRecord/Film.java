@@ -61,24 +61,8 @@ public class Film {
         return film;
     }
 
-    public static ArrayList<Film> findByTitre(String nom) throws SQLException {
-        Connection connect = DBConnection.getConnection();
-        ArrayList<Film> films = new ArrayList<>();
-
-        String SQLPrep = "SELECT * FROM Film f inner join Personne p on f.id_rea = p.id;" +
-                " WHERE NOM = ?";
-        PreparedStatement prep = connect.prepareStatement(SQLPrep);
-        prep.setString(1, nom);
-        ResultSet rs = prep.executeQuery();
-
-        while (rs.next()) {
-            int id = rs.getInt("f.id");
-            String titre = rs.getString("titre");
-            int id_real = rs.getInt("id_rea");
-            Film film = new Film(titre,id,id_real);
-            films.add(film);
-        }
-        return films;
+    public Personne getRealisateur(int id_real) throws SQLException {
+        return Personne.findById(id_real);
     }
 
 
