@@ -46,7 +46,7 @@ public class TestPersonne {
             Personne pp = listPBase.get(i);
 
 
-            assertEquals("les personnes devraient être les memes",true, pres.equals(pp));
+            assertEquals("les personnes devraient être les memes.",true, pres.equals(pp));
         }
 
     }

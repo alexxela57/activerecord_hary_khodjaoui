@@ -80,6 +80,7 @@ public class Personne {
             int id = rs.getInt("ID");
             String prenom = rs.getString("PRENOM");
             Personne personne = new Personne( nom, prenom);
+            personne.id=id;
             personnes.add(personne);
         }
         return personnes;
