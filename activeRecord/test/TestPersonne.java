@@ -22,6 +22,7 @@ public class TestPersonne {
     public void creerDonnees() throws SQLException {
         // lien vers la base de test
         Personne.createTable();
+        Film.createTable();
 
         // ajoute
         new Personne("Spielberg", "Steven").save(); // id 1
@@ -38,6 +39,7 @@ public class TestPersonne {
      */
     @AfterEach
     public void supprimerDonnees() throws SQLException {
+        Film.deleteTable();
         Personne.deleteTable();
     }
 

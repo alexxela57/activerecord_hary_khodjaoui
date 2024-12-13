@@ -65,6 +65,29 @@ public class Film {
         return Personne.findById(id_real);
     }
 
+    public static void createTable() throws SQLException {
+        Connection connection = DBConnection.getConnection();
+        String SQLPrep =  """
+            CREATE TABLE IF NOT EXISTS film (
+                id INT(11) NOT NULL AUTO_INCREMENT,
+                titre VARCHAR(40) NOT NULL,
+                id_rea int(11) default NULL,
+                PRIMARY KEY (id)
+            ) ENGINE=InnoDB DEFAULT CHARSET=latin1;""";
+        try (PreparedStatement prep = connection.prepareStatement(SQLPrep)) {
+            prep.executeUpdate();
+        }
+
+    }
+
+    public static void deleteTable() throws SQLException {
+        Connection connect = DBConnection.getConnection();
+
+        String SQLPrep = "DROP TABLE IF EXISTS film";
+        try (PreparedStatement prep = connect.prepareStatement(SQLPrep)) {
+            prep.executeUpdate();
+        }
+    }
 
     public String getTitre() {
         return titre;
